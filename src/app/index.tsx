@@ -1,98 +1,173 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import { useRef } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import CategoryItem from '@/components/CategoryItem';
+import PrimaryButton from '@/components/PrimaryButton';
+import ProductCard from '@/components/ProductCard';
+import SectionHeader from '@/components/SectionHeader';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+const categories = [
+  'Mobiles',
+  'Laptops',
+  'Electronics',
+  'Accessories',
+];
+
+const products = [
+  {
+    id: '1',
+    name: 'iPhone 15',
+    price: 59999,
+    image:
+      'https://images.unsplash.com/photo-1592750475338-74b7b21085ab',
+  },
+  {
+    id: '2',
+    name: 'Samsung Galaxy S24',
+    price: 74999,
+    image:
+      'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf',
+  },
+  {
+    id: '3',
+    name: 'MacBook Air',
+    price: 99999,
+    image:
+      'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
+  },
+  {
+    id: '4',
+    name: 'Sony Headphones',
+    price: 12999,
+    image:
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
+  },
+];
 
 export default function HomeScreen() {
+  const scrollRef = useRef<ScrollView>(null);
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+  ref={scrollRef}
+  showsVerticalScrollIndicator={false}
+>
+        <View style={styles.header}>
+          <Text style={styles.storeName}>MyStore</Text>
+          <Text style={styles.welcome}>Welcome back, Anusha!</Text>
+        </View>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+        <View style={styles.banner}>
+          <View style={styles.bannerContent}>
+            <Text style={styles.bannerTitle}>Big Deals Are Here!</Text>
+            <Text style={styles.bannerSubtitle}>
+              Discover your favourite products.
+            </Text>
+            
+<PrimaryButton
+  title="Shop Now"
+  onPress={() =>
+    scrollRef.current?.scrollTo({
+      y: 500,
+      animated: true,
+    })
+  }
+/>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+          </View>
+        </View>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+        <SectionHeader title="Shop by Category" />
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          style={styles.categoryList}
+        >
+          {categories.map((category) => (
+            <CategoryItem key={category} name={category} />
+          ))}
+        </ScrollView>
+
+        <SectionHeader title="Featured Products" />
+
+        <View style={styles.productList}>
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.image}
+            />
+          ))}
+        </View>
+
+        <Text style={styles.footer}>Thank you for shopping with MyStore!</Text>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
   safeArea: {
     flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+    backgroundColor: '#f8fafc',
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 12,
   },
-  title: {
+
+  storeName: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#2563eb',
+  },
+
+  welcome: {
+    fontSize: 16,
+    color: '#64748b',
+    marginTop: 6,
+  },
+
+  banner: {
+    margin: 20,
+    borderRadius: 18,
+    backgroundColor: '#dbeafe',
+    padding: 20,
+  },
+
+  bannerContent: {
+    gap: 12,
+  },
+
+  bannerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#1e3a8a',
+  },
+
+  bannerSubtitle: {
+    fontSize: 15,
+    color: '#334155',
+  },
+
+  categoryList: {
+    paddingLeft: 20,
+  },
+
+  productList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+
+  footer: {
     textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+    color: '#64748b',
+    marginVertical: 24,
   },
 });
