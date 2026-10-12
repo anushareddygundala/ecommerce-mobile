@@ -14,11 +14,14 @@ const categories = [
   'Accessories',
 ];
 
+
+
 const products = [
   {
     id: '1',
     name: 'iPhone 15',
     price: 59999,
+    category: 'Mobiles',
     image:
       'https://images.unsplash.com/photo-1592750475338-74b7b21085ab',
   },
@@ -26,6 +29,7 @@ const products = [
     id: '2',
     name: 'Samsung Galaxy S24',
     price: 74999,
+    category: 'Mobiles',
     image:
       'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf',
   },
@@ -33,6 +37,7 @@ const products = [
     id: '3',
     name: 'MacBook Air',
     price: 99999,
+    category: 'Laptops',
     image:
       'https://images.unsplash.com/photo-1517336714731-489689fd1ca8',
   },
@@ -40,6 +45,7 @@ const products = [
     id: '4',
     name: 'Sony Headphones',
     price: 12999,
+    category: 'Accessories',
     image:
       'https://images.unsplash.com/photo-1505740420928-5e560c06d30e',
   },
@@ -94,12 +100,13 @@ export default function HomeScreen() {
 
         <View style={styles.productList}>
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              image={product.image}
-            />
+<ProductCard
+  key={product.id}
+  name={product.name}
+  price={product.price}
+  image={product.image}
+  category={product.category}
+/>
           ))}
         </View>
 
@@ -158,12 +165,13 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
 
-  productList: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
+
+productList: {
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  paddingHorizontal: 20,
+},
 
   footer: {
     textAlign: 'center',
