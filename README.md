@@ -1,52 +1,59 @@
-# MyStore – React Native E-Commerce App
+# MyStore – E-commerce Mobile App
 
-## Project Description
+## Project Overview
+MyStore is a simple e-commerce mobile application built using React Native and Expo. It displays products with their images, names, prices, and categories.
 
-MyStore is a mobile shopping application built using React Native and Expo. This project demonstrates the design of a mobile e-commerce home screen.
+## Technologies Used
+- React Native
+- Expo
+- TypeScript
+- Expo Router
+- React Native FlatList
+- React Native StyleSheet
 
 ## Features
 
-* Welcome message and store name
-* Promotional banner with a Shop Now button
-* Four categories: Mobiles, Laptops, Electronics, and Accessories
-* Four products with images, names, and prices
-* Reusable components: ProductCard, CategoryItem, SectionHeader, and PrimaryButton
-* Scrollable home screen
-* Interactive category and product buttons
+### Assignment 1 – Home Screen
+- Welcome message and store banner
+- Shop Now button
+- Product categories
+- Featured products
+- View Product alert
 
-## Technologies Used
-
-* React Native
-* Expo
-* TypeScript
-* React Native StyleSheet
-* Expo Router
+### Assignment 2 – Products Screen
+- Displays 8 sample products
+- Two-column product layout
+- Reusable ProductCard component
+- Product images, names, prices, and categories
+- View Product button displays product details
+- Empty-list message when no products are available
+- Product data stored separately in `src/data/products.ts`
 
 ## Project Structure
-
-* `src/app/` – Application screens and routing
-* `src/components/` – Reusable UI components
-* `assets/` – Images and other assets
-* `package.json` – Project dependencies and scripts
+```text
+src/
+├── app/
+│   ├── index.tsx
+│   ├── products.tsx
+│   └── _layout.tsx
+├── components/
+│   └── ProductCard.tsx
+└── data/
+    └── products.ts
+```
 
 ## How to Run the Project
 
-1. Install dependencies:
+1. Install Node.js and npm.
+2. Open a terminal in the project directory.
+3. Install dependencies:
+   `npm install`
+4. Start Expo:
+   `npx expo start`
+5. Scan the QR code using Expo Go to run the app on your mobile device.
 
-   ```bash
-   npm install
-   ```
-2. Start the Expo development server:
+## Current Scope
+This project uses local sample product data. A backend, database, authentication, and payment system are not included.
 
-   ```bash
-   npx expo start
-   ```
-3. Scan the QR code using Expo Go on your Android phone.
-
-## Assignment
-
-React Native – Assignment 1: React Native and Expo Setup + First Mobile E-Commerce Screen.
-
-## Note
-
-This assignment focuses on the mobile user interface. Backend APIs, authentication, and payment functionality are not included.
+## Author
+Student project – React Native and Expo
